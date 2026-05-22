@@ -263,7 +263,7 @@
 </head>
 
 <body>
-  <audio id="bg-music" src="shadow.mp3" loop></audio>
+  <audio id="bg-music" src="shadow.mp3"></audio>
 
   <div class="wrapper">
 
@@ -443,12 +443,12 @@
       document.getElementById('reveal-btn').style.display = 'none';
       const content = document.getElementById('hidden-content');
       content.style.display = 'flex';
-      // Trigger fade-in on next frame
       requestAnimationFrame(() => {
         requestAnimationFrame(() => content.classList.add('show'));
       });
-      // Start music on first interaction
-      document.getElementById('bg-music').play();
+      const music = document.getElementById('bg-music');
+      music.volume = 0.5;
+      music.play();
     }
   </script>
 </body>
