@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>♥ Stinky Fox ♥</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --rose: #e8738a;
@@ -73,8 +82,16 @@
       margin-bottom: 8px;
     }
 
+    .page-subtitle img {
+      display: block;
+      margin: 10px auto 0;
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
     .divider {
-      width: 60px; height: 2px;
+      width: 60px;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--rose), transparent);
       border-radius: 2px;
       margin-bottom: 8px;
@@ -99,168 +116,88 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       opacity: 0;
       transition: opacity 0.18s;
     }
 
-    .main-btn:hover { transform: translateY(-3px); }
-    .main-btn:hover::after { opacity: 1; }
-    .main-btn:active { transform: translateY(0); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--rose), var(--gold));
-      color: #fff;
-      box-shadow: 0 6px 24px rgba(232,115,138,0.35);
+    .main-btn:hover {
+      transform: translateY(-3px);
     }
-    .btn-primary:hover { box-shadow: 0 10px 32px rgba(232,115,138,0.45); }
+
+    .main-btn:hover::after {
+      opacity: 1;
+    }
+
+    .main-btn:active {
+      transform: translateY(0);
+    }
 
     .btn-secondary {
       background: #fff;
       color: var(--deep);
       border: 2px solid var(--blush);
-      box-shadow: 0 4px 16px rgba(232,115,138,0.12);
+      box-shadow: 0 4px 16px rgba(232, 115, 138, 0.12);
     }
-    .btn-secondary:hover { box-shadow: 0 8px 24px rgba(232,115,138,0.2); border-color: var(--rose); }
 
-    /* ── PRESENT OVERLAY ── */
-    .present-overlay {
+    .btn-secondary:hover {
+      box-shadow: 0 8px 24px rgba(232, 115, 138, 0.2);
+      border-color: var(--rose);
+    }
+
+    /* ── HIDDEN CONTENT ── */
+    #hidden-content {
       display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(58,26,34,0.5);
-      backdrop-filter: blur(6px);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .present-overlay.open { display: flex; }
-
-    .present-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .present-svg {
-      width: 120px;
-      height: 120px;
-      cursor: pointer;
-    }
-
-    .present-lid {
-      transform-origin: center bottom;
-      animation: none;
-    }
-
-    .present-overlay.opening .present-lid {
-      animation: liftLid 0.6s ease forwards;
-    }
-
-    @keyframes liftLid {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-      60%  { transform: translateY(-40px) rotate(-15deg); opacity: 1; }
-      100% { transform: translateY(-60px) rotate(-20deg); opacity: 0; }
-    }
-
-    .sparkles {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      pointer-events: none;
-      opacity: 0;
-    }
-    .present-overlay.opening .sparkles {
-      animation: fadeSparkles 0.8s ease 0.4s forwards;
-    }
-    @keyframes fadeSparkles {
-      0%   { opacity: 0; transform: scale(0.5); }
-      50%  { opacity: 1; transform: scale(1.3); }
-      100% { opacity: 0; transform: scale(1.6); }
-    }
-
-    .reveal-img-wrap {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
-    }
-    @keyframes popIn {
-      0%   { opacity: 0; transform: scale(0.7); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .reveal-img-placeholder {
-      width: 280px;
-      height: 200px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--blush), #ffe8cd);
-      border: 2px dashed var(--rose);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      color: var(--rose);
-    }
-    .reveal-img-placeholder svg { width: 40px; height: 40px; }
-    .reveal-img-placeholder span { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 300; }
-
-    .reveal-img-placeholder img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 14px;
-    }
-
-    .close-btn {
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.4);
-      color: #fff;
-      border-radius: 30px;
-      padding: 10px 28px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .close-btn:hover { background: rgba(255,255,255,0.35); }
-
-    /* ── CONTRIBUTORS OVERLAY ── */
-    .contributors-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(58,26,34,0.5);
-      backdrop-filter: blur(6px);
-      z-index: 200;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .contributors-overlay.open { display: flex; }
 
-    .contributors-box {
-      background: var(--cream);
-      border-radius: 24px;
-      padding: 36px 32px;
-      width: 90%;
-      max-width: 480px;
-      max-height: 80vh;
-      overflow-y: auto;
+    #hidden-content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MESSAGE BOX ── */
+    .message-box {
+      width: 100%;
+      padding: 28px 32px;
+      background: #fff;
+      border-radius: 16px;
+      border: 2px dashed #e8c4cd;
+    }
+
+    .message-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #c9899a;
+      margin-bottom: 12px;
+    }
+
+    .message-text {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--deep);
+    }
+
+    /* ── CONTRIBUTORS ── */
+    .contributors-section {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
-      box-shadow: 0 20px 60px rgba(58,26,34,0.25);
+      gap: 20px;
     }
 
-    .contributors-title {
+    .contributors-label {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 2rem;
       font-style: italic;
       color: var(--rose);
       text-align: center;
@@ -268,7 +205,7 @@
 
     .contributors-grid {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
@@ -278,14 +215,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .contributor-avatar {
-      width: 56px;
-      height: 56px;
-      min-width: 56px;
-      min-height: 56px;
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      min-height: 80px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--blush), #ffe8cd);
       border: 2px dashed var(--rose);
@@ -295,302 +232,225 @@
       color: var(--rose);
       overflow: hidden;
       flex-shrink: 0;
+      transition: transform 0.2s;
     }
+
+    .contributor-avatar:hover {
+      transform: scale(1.08);
+    }
+
     .contributor-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .contributor-avatar svg { width: 22px; height: 22px; }
+
+    .contributor-avatar svg {
+      width: 30px;
+      height: 30px;
+    }
 
     .contributor-name {
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-family: 'Lato', sans-serif;
       color: #c9899a;
       text-align: center;
-      max-width: 68px;
+      max-width: 88px;
       word-break: break-word;
     }
-
-    .contributors-close {
-      background: linear-gradient(135deg, var(--rose), var(--gold));
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      padding: 10px 28px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .contributors-close:hover { opacity: 0.85; }
   </style>
 </head>
+
 <body>
+  <audio id="bg-music" src="shadow.mp3" loop></audio>
+
   <div class="wrapper">
 
     <h1 class="page-title">Bon anniversaire, Shinya ! ♥</h1>
-    <p class="page-subtitle">De la part des Renardeaux.</p>
+    <p class="page-subtitle">Une <strong><u>Kitune</u></strong> capable.<br /><br />
+      <img src="kitune.webp" alt="kitune" />
+    </p>
     <div class="divider"></div>
 
-    <!-- Hall of Fame -->
-    <a href="https://www.kudoboard.com/boards/NUspHX5F" target="_blank" style="width:100%; text-decoration:none;">
-      <button class="main-btn btn-primary">🏆 Hall of Fame</button>
-    </a>
+    <button class="main-btn btn-secondary" id="reveal-btn" onclick="reveal()">Click Me</button>
 
-    <!-- Present buttons -->
-    <button class="main-btn btn-secondary" onclick="openPresent('present1')">🎁 Ouvre moi !</button>
-    <button class="main-btn btn-secondary" onclick="openPresent('present2')">🎁 Moi aussi !</button>
-    <button class="main-btn btn-secondary" onclick="openPresent('present3')">🎁 Hey, ne m'oublie pas, hein !</button>
-    <button class="main-btn btn-secondary" onclick="openPresent('present4')" style="font-style:italic;">🎁 Le meilleur pour la fin...</button>
+    <div id="hidden-content">
 
-    <!-- Contributors button — hidden until present4 is opened -->
-    <button class="main-btn btn-secondary" id="contributors-btn" style="display:none;" onclick="openContributors()">💝 Les contributeurs</button>
-
-    <!-- Birthday subpage button -->
-    <div class="divider" style="margin-top:8px;"></div>
-    <a href="https://noxyse.github.io/" style="width:100%; text-decoration:none;">
-      <button class="main-btn btn-secondary" style="font-size:0.85rem; padding:14px 32px;">🦊 Set Fuwawa Abyssgard Birthday 2026</button>
-    </a>
-
-  </div>
-
-  <!-- PRESENT OVERLAY -->
-  <div class="present-overlay" id="present-overlay" onclick="overlayClick(event)">
-    <div class="present-box" id="present-box">
-
-      <div style="position:relative; display:flex; align-items:center; justify-content:center;" id="present-anim">
-        <svg class="sparkles" viewBox="0 0 120 120" id="sparkles-svg">
-          <text x="10" y="30" font-size="18">✨</text>
-          <text x="80" y="20" font-size="14">⭐</text>
-          <text x="90" y="80" font-size="18">✨</text>
-          <text x="5"  y="90" font-size="14">⭐</text>
-          <text x="50" y="10" font-size="12">💫</text>
-        </svg>
-
-        <svg class="present-svg" viewBox="0 0 120 120" id="present-svg" onclick="triggerOpen()" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="55" width="90" height="55" rx="6" fill="#f9d0da" stroke="#e8738a" stroke-width="2.5"/>
-          <rect x="52" y="55" width="16" height="55" fill="#e8738a" opacity="0.5"/>
-          <rect x="15" y="75" width="90" height="12" fill="#e8738a" opacity="0.5"/>
-          <g class="present-lid" id="present-lid">
-            <rect x="10" y="40" width="100" height="20" rx="5" fill="#f9d0da" stroke="#e8738a" stroke-width="2.5"/>
-            <rect x="52" y="40" width="16" height="20" fill="#e8738a" opacity="0.5"/>
-            <ellipse cx="48" cy="38" rx="16" ry="10" fill="#e8738a" transform="rotate(-20 48 38)"/>
-            <ellipse cx="72" cy="38" rx="16" ry="10" fill="#e8738a" transform="rotate(20 72 38)"/>
-            <circle cx="60" cy="40" r="7" fill="#d4956a"/>
-          </g>
-        </svg>
+      <!-- ── MESSAGE ── -->
+      <div class="message-box">
+        <p class="message-label">De la part de Shadow Garden...</p>
+        <p class="message-text">
+          Comme tu l'as sans doute remarqué, une bande d'irréductibles fous du bus a envahi ton <a
+            href="https://throne.com/shinyania" target="_blank" style="color: var(--rose);">Throne</a> ! Nulle crainte,
+          c'était pour la bonne cause... et surtout pour te montrer notre appréciation vis-à-vis du travail que tu
+          fournis chaque semaine.<br /><br />
+          Certains avaient déjà participé au Fuwawa Set que tu retrouveras au bas de cette page. Mais cela ne nous a pas
+          empêché de remettre ça pour ton anniversaire (le vrai, cette fois-ci) !
+        </p>
       </div>
 
-      <p style="color:#fff; font-family:'Playfair Display',serif; font-style:italic; font-size:1rem; opacity:0.85;" id="present-hint">Clique sur le cadeau pour l'ouvrir !</p>
+      <!-- ── CONTRIBUTORS ── -->
+      <div class="contributors-section">
+        <p class="contributors-label">Les contributeurs</p>
+        <div class="contributors-grid">
 
-      <div class="reveal-img-wrap" id="reveal-img-wrap">
-        <div class="reveal-img-placeholder" id="reveal-img-inner">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="3"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <path d="M21 15l-5-5L5 21"/>
-          </svg>
-          <span>image</span>
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Atagi.jpg" alt="Atagi" /></div>
+            <p class="contributor-name">Atagi</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Fire959.png" alt="Fire959" /></div>
+            <p class="contributor-name">Fire959</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Tortue Polnareff.png" alt="Tortue Polnareff" /></div>
+            <p class="contributor-name">Tortue Polnareff</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Zeittar.png" alt="Zeittar" /></div>
+            <p class="contributor-name">Zeittar</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Sisanoo'.png" alt="Sisanoo" /></div>
+            <p class="contributor-name">Sisanoo'</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Thryldor.png" alt="Thryldor" /></div>
+            <p class="contributor-name">Thryldor</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Jda.png" alt="Jda" /></div>
+            <p class="contributor-name">Jda</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Jucorino.jpg" alt="Jucorino" /></div>
+            <p class="contributor-name">Jucorino alias Jucorini alias Juco alias on sait pu tro</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Haru.png" alt="Haru" /></div>
+            <p class="contributor-name">Haru</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="ChibiNeko.png" alt="ChibiNeko" /></div>
+            <p class="contributor-name">ChibiMitsu</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Shreekiss.jpg" alt="Shreekiss" /></div>
+            <p class="contributor-name">Shreekiss</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Chloé.jpg" alt="Chloé" /></div>
+            <p class="contributor-name">Chloé</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Stigma.png" alt="Stigma" /></div>
+            <p class="contributor-name">Stigma</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Krokus.png" alt="Krokus" /></div>
+            <p class="contributor-name">Krokus</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="KyrjaOS.png" alt="KyrjaOS" /></div>
+            <p class="contributor-name">KyrjaOS</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Oslanne.png" alt="Oslanne" /></div>
+            <p class="contributor-name">Oslanne</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Kaaz.png" alt="Kaaz" /></div>
+            <p class="contributor-name">Kaaz</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Edogi.png" alt="Edogi" /></div>
+            <p class="contributor-name">Edogi</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="cookie.webp" alt="Kuro Okami" /></div>
+            <p class="contributor-name">Kuro Okami</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Witcher.png" alt="Witcher" /></div>
+            <p class="contributor-name">Witcher</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="bread.webp" alt="SunderPlouf" /></div>
+            <p class="contributor-name">SunderPlouf</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Ana.png" alt="Ana" /></div>
+            <p class="contributor-name">Ana</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Towa.png" alt="Towa" /></div>
+            <p class="contributor-name">Towa</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+              </svg>
+            </div>
+            <p class="contributor-name">Username</p>
+          </div>
+
+          <div class="contributor-wrap">
+            <div class="contributor-avatar"><img src="Noxise.png" alt="Noxise" /></div>
+            <p class="contributor-name">Nono</p>
+          </div>
+
         </div>
       </div>
 
-      <button class="close-btn" onclick="closePresent()">Fermer ✕</button>
-    </div>
-  </div>
+      <!-- ── SEPARATOR + FUWAWA BUTTON ── -->
+      <div class="divider" style="margin-top:8px;"></div>
+      <a href="https://noxyse.github.io/" style="width:100%; text-decoration:none;">
+        <button class="main-btn btn-secondary" style="font-size:0.85rem; padding:14px 32px;">🦊 Set Fuwawa Abyssgard
+          Birthday 2026</button>
+      </a>
 
-  <!-- CONTRIBUTORS OVERLAY -->
-  <div class="contributors-overlay" id="contributors-overlay">
-    <div class="contributors-box">
-      <h2 class="contributors-title">💝 Les contributeurs</h2>
-      <div class="divider" style="margin:0;"></div>
-
-      <div class="contributors-grid">
-
-        <!-- Copy and repeat this block for each contributor -->
-        <!-- <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="YourImage.png" alt="Name" />
-          </div>
-          <p class="contributor-name">Username</p>
-        </div> -->
-
-        <!-- CONTRIBUTOR 1 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Atagi.jpg" alt="Atagi" />
-          </div>
-          <p class="contributor-name">Atagi</p>
-        </div>
-
-        <!-- CONTRIBUTOR 2 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Fire959.png" alt="Fire959" />
-          </div>
-          <p class="contributor-name">Fire959</p>
-        </div>
-
-        <!-- CONTRIBUTOR 3 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Tortue Polnareff.png" alt="Tortue Polnareff" />
-          </div>
-          <p class="contributor-name">Tortue Polnareff</p>
-        </div>
-
-        <!-- CONTRIBUTOR 4 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Zeittar.png" alt="Zeittar" />
-          </div>
-          <p class="contributor-name">Zeittar</p>
-        </div>
-
-        <!-- CONTRIBUTOR 5 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Sisanoo'.png" alt="Sisanoo" />
-          </div>
-          <p class="contributor-name">Sisanoo'</p>
-        </div>
-
-        <!-- CONTRIBUTOR 6 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Thryldor.png" alt="Thryldor" />
-          </div>
-          <p class="contributor-name">Thryldor</p>
-        </div>
-        
-        <!-- CONTRIBUTOR 7 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Jda.png" alt="Jda" />
-          </div>
-          <p class="contributor-name">Jda</p>
-        </div>
-        
-        <!-- CONTRIBUTOR 8 -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Jucorino.jpg" alt="Jucorino" />
-          </div>
-          <p class="contributor-name">Jucorino</p>
-        </div>
-        
-        <!-- CONTRIBUTOR ç -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <img src="Haru.png" alt="Haru" />
-          </div>
-          <p class="contributor-name">Haru</p>
-        </div>
-        
-        <!-- CONTRIBUTOR X -->
-        <div class="contributor-wrap">
-          <div class="contributor-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-          </div>
-          <p class="contributor-name">Username</p>
-        </div>
-
-      </div>
-
-      <button class="contributors-close" onclick="closeContributors()">Fermer ✕</button>
-    </div>
-  </div>
+    </div><!-- end hidden-content -->
+  </div><!-- end wrapper -->
 
   <script>
-    const presents = {
-      present1: { img: 'rode.jpg', label: 'Ouvre moi !' },
-      present2: { img: 'bras.jpg', label: 'Moi aussi !' },
-      present3: { img: 'focusrite.webp', label: 'Hey, ne m\'oublie pas, hein !' },
-      present4: { img: '', label: 'Le meilleur pour la fin...' },
-    };
-
-    let currentPresent = null;
-    let opened = false;
-
-    function openPresent(id) {
-      currentPresent = id;
-      opened = false;
-      const overlay = document.getElementById('present-overlay');
-      const lid = document.getElementById('present-lid');
-      const revealWrap = document.getElementById('reveal-img-wrap');
-      const hint = document.getElementById('present-hint');
-      const presentAnim = document.getElementById('present-anim');
-
-      overlay.classList.remove('opening');
-      lid.style.opacity = '1';
-      lid.style.transform = '';
-      revealWrap.style.display = 'none';
-      hint.style.display = 'block';
-      presentAnim.style.display = 'flex';
-      hint.textContent = 'Clique sur le cadeau pour l\'ouvrir !';
-
-      overlay.classList.add('open');
+    function reveal() {
+      document.getElementById('reveal-btn').style.display = 'none';
+      const content = document.getElementById('hidden-content');
+      content.style.display = 'flex';
+      // Trigger fade-in on next frame
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => content.classList.add('show'));
+      });
+      // Start music on first interaction
+      document.getElementById('bg-music').play();
     }
-
-    function triggerOpen() {
-      if (opened) return;
-      opened = true;
-
-      const overlay    = document.getElementById('present-overlay');
-      const revealWrap = document.getElementById('reveal-img-wrap');
-      const hint       = document.getElementById('present-hint');
-      const presentAnim = document.getElementById('present-anim');
-      const inner      = document.getElementById('reveal-img-inner');
-
-      overlay.classList.add('opening');
-
-      setTimeout(() => {
-        presentAnim.style.display = 'none';
-        hint.style.display = 'none';
-
-        const p = presents[currentPresent];
-        if (p && p.img) {
-          inner.innerHTML = `<img src="${p.img}" alt="${p.label}" />`;
-          inner.style.background = 'none';
-          inner.style.border = 'none';
-        } else {
-          inner.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-            <span>emplacement image</span>`;
-        }
-
-        revealWrap.style.display = 'flex';
-      }, 900);
-    }
-
-    function closePresent() {
-      document.getElementById('present-overlay').classList.remove('open', 'opening');
-      if (currentPresent === 'present4') {
-        document.getElementById('contributors-btn').style.display = 'block';
-      }
-      currentPresent = null;
-    }
-
-    function overlayClick(e) {
-      if (e.target === e.currentTarget) closePresent();
-    }
-
-    function openContributors() {
-      document.getElementById('contributors-overlay').classList.add('open');
-    }
-
-    function closeContributors() {
-      document.getElementById('contributors-overlay').classList.remove('open');
-    }
-
-    document.getElementById('contributors-overlay').addEventListener('click', function(e) {
-      if (e.target === this) closeContributors();
-    });
   </script>
 </body>
+
 </html>
