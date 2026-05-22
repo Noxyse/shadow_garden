@@ -55,14 +55,13 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 520px;
+      max-width: 620px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
     }
 
-    /* ── TITLE ── */
     .page-title {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
@@ -97,7 +96,6 @@
       margin-bottom: 8px;
     }
 
-    /* ── BUTTONS ── */
     .main-btn {
       width: 100%;
       padding: 18px 32px;
@@ -186,13 +184,13 @@
       color: var(--deep);
     }
 
-    /* ── CONTRIBUTORS ── */
+    /* ── CONTRIBUTORS GRID OVER IMAGE ── */
     .contributors-section {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
     .contributors-label {
@@ -203,61 +201,118 @@
       text-align: center;
     }
 
-    .contributors-grid {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
+    .contributors-hint {
+      font-size: 0.78rem;
+      color: #c9899a;
+      letter-spacing: 0.08em;
+      text-align: center;
     }
 
-    .contributor-wrap {
+    .grid-container {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(58, 26, 34, 0.2);
+    }
+
+    .grid-container img.bg-image {
+      width: 100%;
+      display: block;
+    }
+
+    /* The overlay grid sits on top of the image */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
+
+    /* Each cell */
+    .grid-cell {
+      position: relative;
+      cursor: pointer;
+      border: 1px solid rgba(232, 115, 138, 0.15);
+      transition: border-color 0.2s;
+      overflow: hidden;
+    }
+
+    .grid-cell:hover {
+      border-color: rgba(232, 115, 138, 0.5);
+    }
+
+    /* The image "cover" that fades out on click */
+    .cell-cover {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    /* The avatar + name that fades in */
+    .cell-reveal {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-    }
-
-    .contributor-avatar {
-      width: 80px;
-      height: 80px;
-      min-width: 80px;
-      min-height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--blush), #ffe8cd);
-      border: 2px dashed var(--rose);
-      display: flex;
-      align-items: center;
       justify-content: center;
-      color: var(--rose);
+      gap: 6px;
+      background: rgba(255, 248, 244, 0.92);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      padding: 6px 4px;
+    }
+
+    .grid-cell.revealed .cell-reveal {
+      opacity: 1;
+    }
+
+    .grid-cell.revealed .cell-cover {
+      opacity: 0;
+    }
+
+    /* Hover hint on unrevealed cells */
+    .grid-cell:not(.revealed):hover .cell-cover {
+      background: rgba(232, 115, 138, 0.12);
+    }
+
+    .cell-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
       overflow: hidden;
+      border: 2px solid var(--rose);
       flex-shrink: 0;
-      transition: transform 0.2s;
     }
 
-    .contributor-avatar:hover {
-      transform: scale(1.08);
-    }
-
-    .contributor-avatar img {
+    .cell-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .contributor-avatar svg {
-      width: 30px;
-      height: 30px;
+    .cell-avatar svg {
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      color: var(--rose);
+      background: linear-gradient(135deg, var(--blush), #ffe8cd);
     }
 
-    .contributor-name {
-      font-size: 0.82rem;
+    .cell-name {
       font-family: 'Lato', sans-serif;
-      color: #c9899a;
+      font-size: 0.65rem;
+      color: var(--deep);
       text-align: center;
-      max-width: 88px;
       word-break: break-word;
+      max-width: 90%;
+      line-height: 1.3;
     }
   </style>
 </head>
@@ -290,141 +345,17 @@
         </p>
       </div>
 
-      <!-- ── CONTRIBUTORS ── -->
+      <!-- ── CONTRIBUTORS GRID ── -->
       <div class="contributors-section">
         <p class="contributors-label">Les contributeurs</p>
-        <div class="contributors-grid">
+        <p class="contributors-hint">✦ Clique sur une case pour découvrir qui se cache derrière ! ✦</p>
 
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Atagi.jpg" alt="Atagi" /></div>
-            <p class="contributor-name">Atagi</p>
+        <div class="grid-container">
+          <img class="bg-image" src="shadow_garden.png" alt="Shadow Garden" />
+
+          <div class="grid-overlay" id="grid-overlay">
+            <!-- Cells injected by JS -->
           </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Fire959.png" alt="Fire959" /></div>
-            <p class="contributor-name">Fire959</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Tortue Polnareff.png" alt="Tortue Polnareff" /></div>
-            <p class="contributor-name">Tortue Polnareff</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Zeittar.png" alt="Zeittar" /></div>
-            <p class="contributor-name">Zeittar</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Sisanoo'.png" alt="Sisanoo" /></div>
-            <p class="contributor-name">Sisanoo'</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Thryldor.png" alt="Thryldor" /></div>
-            <p class="contributor-name">Thryldor</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Jda.png" alt="Jda" /></div>
-            <p class="contributor-name">Jda</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Jucorino.jpg" alt="Jucorino" /></div>
-            <p class="contributor-name">Jucorino alias Jucorini alias Juco alias on sait pu tro</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Haru.png" alt="Haru" /></div>
-            <p class="contributor-name">Haru</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="ChibiNeko.png" alt="ChibiNeko" /></div>
-            <p class="contributor-name">ChibiMitsu</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Shreekiss.jpg" alt="Shreekiss" /></div>
-            <p class="contributor-name">Shreekiss</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Chloé.jpg" alt="Chloé" /></div>
-            <p class="contributor-name">Chloé</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Stigma.png" alt="Stigma" /></div>
-            <p class="contributor-name">Stigma</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Krokus.png" alt="Krokus" /></div>
-            <p class="contributor-name">Krokus</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="KyrjaOS.png" alt="KyrjaOS" /></div>
-            <p class="contributor-name">KyrjaOS</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Oslanne.png" alt="Oslanne" /></div>
-            <p class="contributor-name">Oslanne</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Kaaz.png" alt="Kaaz" /></div>
-            <p class="contributor-name">Kaaz</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Edogi.png" alt="Edogi" /></div>
-            <p class="contributor-name">Edogi</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="cookie.webp" alt="Kuro Okami" /></div>
-            <p class="contributor-name">Fenrise</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Witcher.png" alt="Witcher" /></div>
-            <p class="contributor-name">Witcher</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="bread.webp" alt="SunderPlouf" /></div>
-            <p class="contributor-name">SunderPlouf</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Ana.png" alt="Ana" /></div>
-            <p class="contributor-name">Ana</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Towa.png" alt="Towa" /></div>
-            <p class="contributor-name">Towa</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-              </svg>
-            </div>
-            <p class="contributor-name">Username</p>
-          </div>
-
-          <div class="contributor-wrap">
-            <div class="contributor-avatar"><img src="Noxise.png" alt="Noxise" /></div>
-            <p class="contributor-name">Nono</p>
-          </div>
-
         </div>
       </div>
 
@@ -439,6 +370,86 @@
   </div><!-- end wrapper -->
 
   <script>
+    // ── CONTRIBUTORS LIST ──────────────────────────────
+    // Order = left to right, top to bottom (row 1 first, then row 2, etc.)
+    const contributors = [
+      { img: 'Atagi.jpg', name: 'Atagi' },
+      { img: 'Fire959.png', name: 'Fire959' },
+      { img: 'Tortue Polnareff.png', name: 'Tortue Polnareff' },
+      { img: 'Zeittar.png', name: 'Zeittar' },
+      { img: "Sisanoo'.png", name: "Sisanoo'" },
+      { img: 'Thryldor.png', name: 'Thryldor' },
+      { img: 'Jda.png', name: 'Jda' },
+      { img: 'Jucorino.jpg', name: 'Jucorino alias Jucorini alias Juco alias on sait pu tro' },
+      { img: 'Haru.png', name: 'Haru' },
+      { img: 'ChibiNeko.png', name: 'ChibiMitsu' },
+      { img: 'Shreekiss.jpg', name: 'Shreekiss' },
+      { img: 'Chloé.jpg', name: 'Chloé' },
+      { img: 'Stigma.png', name: 'Stigma' },
+      { img: 'Krokus.png', name: 'Krokus' },
+      { img: 'KyrjaOS.png', name: 'KyrjaOS' },
+      { img: 'Oslanne.png', name: 'Oslanne' },
+      { img: 'Kaaz.png', name: 'Kaaz' },
+      { img: 'Edogi.png', name: 'Edogi' },
+      { img: 'cookie.webp', name: 'Kuro Okami' },
+      { img: 'Witcher.png', name: 'Witcher' },
+      { img: 'bread.webp', name: 'SunderPlouf' },
+      { img: 'Ana.png', name: 'Ana' },
+      { img: 'Towa.png', name: 'Towa' },
+      { img: null, name: 'Username' },   // placeholder
+      { img: 'Noxise.png', name: 'Nono' },
+    ];
+
+    // ── BUILD GRID ─────────────────────────────────────
+    // 6 cols × 4 rows = 24 cells (one contributor per cell)
+    const COLS = 6;
+    const ROWS = 4;
+    const overlay = document.getElementById('grid-overlay');
+
+    for (let i = 0; i < COLS * ROWS; i++) {
+      const c = contributors[i] || { img: null, name: '' };
+
+      const cell = document.createElement('div');
+      cell.className = 'grid-cell';
+      cell.title = 'Clique pour révéler !';
+
+      // Cover (transparent — the image shows through naturally)
+      const cover = document.createElement('div');
+      cover.className = 'cell-cover';
+      cell.appendChild(cover);
+
+      // Reveal layer
+      const revealDiv = document.createElement('div');
+      revealDiv.className = 'cell-reveal';
+
+      // Avatar
+      const avatarDiv = document.createElement('div');
+      avatarDiv.className = 'cell-avatar';
+      if (c.img) {
+        avatarDiv.innerHTML = `<img src="${c.img}" alt="${c.name}" />`;
+      } else {
+        avatarDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`;
+      }
+
+      // Name
+      const nameEl = document.createElement('p');
+      nameEl.className = 'cell-name';
+      nameEl.textContent = c.name;
+
+      revealDiv.appendChild(avatarDiv);
+      revealDiv.appendChild(nameEl);
+      cell.appendChild(revealDiv);
+
+      // Click to reveal
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('revealed');
+        cell.title = cell.classList.contains('revealed') ? 'Clique pour cacher' : 'Clique pour révéler !';
+      });
+
+      overlay.appendChild(cell);
+    }
+
+    // ── REVEAL PAGE ────────────────────────────────────
     function reveal() {
       document.getElementById('reveal-btn').style.display = 'none';
       const content = document.getElementById('hidden-content');
@@ -447,7 +458,7 @@
         requestAnimationFrame(() => content.classList.add('show'));
       });
       const music = document.getElementById('bg-music');
-      music.volume = 0.5;
+      music.volume = 0.3;
       music.play();
     }
   </script>
