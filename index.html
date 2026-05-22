@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>♥ Stinky Fox ♥</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --rose: #e8738a;
@@ -74,7 +83,8 @@
     }
 
     .divider {
-      width: 60px; height: 2px;
+      width: 60px;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--rose), transparent);
       border-radius: 2px;
       margin-bottom: 8px;
@@ -99,22 +109,34 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       opacity: 0;
       transition: opacity 0.18s;
     }
 
-    .main-btn:hover { transform: translateY(-3px); }
-    .main-btn:hover::after { opacity: 1; }
-    .main-btn:active { transform: translateY(0); }
+    .main-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .main-btn:hover::after {
+      opacity: 1;
+    }
+
+    .main-btn:active {
+      transform: translateY(0);
+    }
 
     .btn-secondary {
       background: #fff;
       color: var(--deep);
       border: 2px solid var(--blush);
-      box-shadow: 0 4px 16px rgba(232,115,138,0.12);
+      box-shadow: 0 4px 16px rgba(232, 115, 138, 0.12);
     }
-    .btn-secondary:hover { box-shadow: 0 8px 24px rgba(232,115,138,0.2); border-color: var(--rose); }
+
+    .btn-secondary:hover {
+      box-shadow: 0 8px 24px rgba(232, 115, 138, 0.2);
+      border-color: var(--rose);
+    }
 
     /* ── MESSAGE BOX ── */
     .message-box {
@@ -188,14 +210,22 @@
       flex-shrink: 0;
       transition: transform 0.2s;
     }
-    .contributor-avatar:hover { transform: scale(1.08); }
+
+    .contributor-avatar:hover {
+      transform: scale(1.08);
+    }
+
     .contributor-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .contributor-avatar svg { width: 30px; height: 30px; }
+
+    .contributor-avatar svg {
+      width: 30px;
+      height: 30px;
+    }
 
     .contributor-name {
       font-size: 0.82rem;
@@ -207,20 +237,26 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
 
     <h1 class="page-title">Bon anniversaire, Shinya ! ♥</h1>
     <p class="page-subtitle">Une <strong><u>Kitune</u></strong> capable. </br></br>
-      <img src="kitune.webp" alt="kitune" /></p>
+      <img src="kitune.webp" alt="kitune" />
+    </p>
     <div class="divider"></div>
 
     <!-- ── MESSAGE ── -->
     <div class="message-box">
       <p class="message-label">De la part de Shadow Garden...</p>
       <p class="message-text">
-        Comme tu l'as sans doute remarqué, une bande d'irréductibles fous du bus a envahi ton <a href="https://throne.com/shinyania" target="_blank" style="color: var(--rose);">Throne</a> ! Nulle crainte, c'était pour la bonne cause... et surtout pour te montrer notre appréciation vis-à-vis du travail que tu fournis chaque semaine. </br></br>
-        Certains avaient déjà participé au Fuwawa Set que tu retrouveras au bas de cette page. Mais cela ne nous a pas empêché de remettre ça pour ton anniversaire (le vrai, cette fois-ci) ! 
+        Comme tu l'as sans doute remarqué, une bande d'irréductibles fous du bus a envahi ton <a
+          href="https://throne.com/shinyania" target="_blank" style="color: var(--rose);">Throne</a> ! Nulle crainte,
+        c'était pour la bonne cause... et surtout pour te montrer notre appréciation vis-à-vis du travail que tu fournis
+        chaque semaine. </br></br>
+        Certains avaient déjà participé au Fuwawa Set que tu retrouveras au bas de cette page. Mais cela ne nous a pas
+        empêché de remettre ça pour ton anniversaire (le vrai, cette fois-ci) !
       </p>
     </div>
 
@@ -232,7 +268,7 @@
         <!-- CONTRIBUTOR 1 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Atagi.jpg" alt="Atagi" />          
+            <img src="Atagi.jpg" alt="Atagi" />
           </div>
           <p class="contributor-name">Atagi</p>
         </div>
@@ -248,7 +284,7 @@
         <!-- CONTRIBUTOR 3 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Tortue Polnareff.png" alt="Tortue Polnareff" />         
+            <img src="Tortue Polnareff.png" alt="Tortue Polnareff" />
           </div>
           <p class="contributor-name">Tortue Polnareff</p>
         </div>
@@ -256,7 +292,7 @@
         <!-- CONTRIBUTOR 4 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Zeittar.png" alt="Zeittar" />          
+            <img src="Zeittar.png" alt="Zeittar" />
           </div>
           <p class="contributor-name">Zeittar</p>
         </div>
@@ -264,43 +300,43 @@
         <!-- CONTRIBUTOR 5 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Sisanoo'.png" alt="Sisanoo" />         
+            <img src="Sisanoo'.png" alt="Sisanoo" />
           </div>
           <p class="contributor-name">Sisanoo'</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 6 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Thryldor.png" alt="Thryldor" />          
+            <img src="Thryldor.png" alt="Thryldor" />
           </div>
           <p class="contributor-name">Thryldor</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 7 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Jda.png" alt="Jda" />          
+            <img src="Jda.png" alt="Jda" />
           </div>
           <p class="contributor-name">Jda</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 8 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Jucorino.jpg" alt="Jucorino" />          
+            <img src="Jucorino.jpg" alt="Jucorino" />
           </div>
           <p class="contributor-name">Jucorino alias Jucorini alias Juco alias on sait pu tro</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 9 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <img src="Haru.png" alt="Haru" />          
+            <img src="Haru.png" alt="Haru" />
           </div>
           <p class="contributor-name">Haru</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 10 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
@@ -308,7 +344,7 @@
           </div>
           <p class="contributor-name">ChibiMitsu</p>
         </div>
-        
+
         <!-- CONTRIBUTOR 11 -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
@@ -332,15 +368,98 @@
           </div>
           <p class="contributor-name">Stigma</p>
         </div>
-        
+
+        <!-- CONTRIBUTOR 14 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Krokus.png" alt="Krokus" />
+          </div>
+          <p class="contributor-name">Krokus</p>
+        </div>
+
+        <!-- CONTRIBUTOR 14 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="KyrjaOS.png" alt="KyrjaOS" />
+          </div>
+          <p class="contributor-name">KyrjaOS</p>
+        </div>
+
+        <!-- CONTRIBUTOR 15 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Oslanne.png" alt="Oslanne" />
+          </div>
+          <p class="contributor-name">Oslanne</p>
+        </div>
+
+        <!-- CONTRIBUTOR 16 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Kaaz.png" alt="Kaaz" />
+          </div>
+          <p class="contributor-name">Kaaz</p>
+        </div>
+
+        <!-- CONTRIBUTOR 17 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Edogi.png" alt="Edogi" />
+          </div>
+          <p class="contributor-name">Edogi</p>
+        </div>
+
+        <!-- CONTRIBUTOR 18 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="cookie.webp" alt="Kuro Okami" />
+          </div>
+          <p class="contributor-name">Kuro Okami</p>
+        </div>
+
+        <!-- CONTRIBUTOR 19 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Witcher.png" alt="Witcher" />
+          </div>
+          <p class="contributor-name">Witcher</p>
+        </div>
+
+        <!-- CONTRIBUTOR 20 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="bread.webp" alt="SunderPlouf" />
+          </div>
+          <p class="contributor-name">SunderPlouf</p>
+        </div>
+
+        <!-- CONTRIBUTOR 21 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Ana.png" alt="Ana" />
+          </div>
+          <p class="contributor-name">Ana</p>
+        </div>
+
+        <!-- CONTRIBUTOR 22 -->
+        <div class="contributor-wrap">
+          <div class="contributor-avatar">
+            <img src="Towa.png" alt="Towa" />
+          </div>
+          <p class="contributor-name">Towa</p>
+        </div>
+
         <!-- CONTRIBUTOR X -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+            </svg>
           </div>
           <p class="contributor-name">Username</p>
         </div>
-        
+
         <!-- LAST CONTRIBUTOR -->
         <div class="contributor-wrap">
           <div class="contributor-avatar">
@@ -355,9 +474,11 @@
     <!-- ── SEPARATOR + FUWAWA BUTTON ── -->
     <div class="divider" style="margin-top:8px;"></div>
     <a href="https://noxyse.github.io/" style="width:100%; text-decoration:none;">
-      <button class="main-btn btn-secondary" style="font-size:0.85rem; padding:14px 32px;">🦊 Set Fuwawa Abyssgard Birthday 2026</button>
+      <button class="main-btn btn-secondary" style="font-size:0.85rem; padding:14px 32px;">🦊 Set Fuwawa Abyssgard
+        Birthday 2026</button>
     </a>
 
   </div>
 </body>
+
 </html>
