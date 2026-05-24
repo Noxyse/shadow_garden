@@ -526,11 +526,14 @@
       }
       // Click to reveal
       cell.addEventListener('click', () => {
-        if (!cell.classList.contains('revealed') && !cell.classList.contains('seen')) {
+        if (!cell.classList.contains('seen')) {
           openPopup(c.popup, cell);
         } else if (cell.classList.contains('revealed')) {
           cell.classList.remove('revealed');
           cell.title = 'Clique pour révéler !';
+        } else {
+          cell.classList.add('revealed');
+          cell.title = 'Clique pour cacher';
         }
       });
 
