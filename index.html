@@ -221,7 +221,6 @@
       display: block;
     }
 
-    /* The overlay grid sits on top of the image */
     .grid-overlay {
       position: absolute;
       inset: 0;
@@ -230,7 +229,6 @@
       grid-template-rows: repeat(5, 1fr);
     }
 
-    /* Each cell */
     .grid-cell {
       position: relative;
       cursor: pointer;
@@ -243,7 +241,6 @@
       border-color: rgba(232, 115, 138, 0.5);
     }
 
-    /* The image "cover" that fades out on click */
     .cell-cover {
       position: absolute;
       inset: 0;
@@ -252,7 +249,6 @@
       pointer-events: none;
     }
 
-    /* The avatar + name that fades in */
     .cell-reveal {
       position: absolute;
       inset: 0;
@@ -276,7 +272,6 @@
       opacity: 0;
     }
 
-    /* Hover hint on unrevealed cells */
     .grid-cell:not(.revealed):hover .cell-cover {
       background: rgba(232, 115, 138, 0.12);
     }
@@ -315,6 +310,7 @@
       line-height: 1.3;
     }
 
+    /* ── POPUP ── */
     #popup-overlay {
       display: none;
       position: fixed;
@@ -362,7 +358,6 @@
   <audio id="bg-music" src="shadow.mp3"></audio>
   <audio id="bg-music-2" src="shadow2.mp3"></audio>
 
-
   <div class="wrapper">
 
     <h1 class="page-title">Bon anniversaire, Shinya ! ♥</h1>
@@ -404,7 +399,6 @@
             il était urgent d'agir avant que la guilde marchande ne prenne des mesures défensives trop extrêmes (= le
             dimanche il y a plus d'agents de Shadow Garden présents que le mercredi).</span>
         </p>
-        </p>
       </div>
 
       <!-- ── CONTRIBUTORS GRID ── -->
@@ -414,10 +408,7 @@
 
         <div class="grid-container">
           <img class="bg-image" src="shadow_garden.png" alt="Shadow Garden" />
-
-          <div class="grid-overlay" id="grid-overlay">
-            <!-- Cells injected by JS -->
-          </div>
+          <div class="grid-overlay" id="grid-overlay"></div>
         </div>
       </div>
 
@@ -431,9 +422,14 @@
     </div><!-- end hidden-content -->
   </div><!-- end wrapper -->
 
+  <!-- POPUP -->
+  <div id="popup-overlay" onclick="if(event.target===this) closePopup()">
+    <img id="popup-img" src="" alt="Surprise" />
+    <button id="popup-close" onclick="closePopup()">Fermer ✕</button>
+  </div>
+
   <script>
     // ── CONTRIBUTORS LIST ──────────────────────────────
-    // Order = left to right, top to bottom (row 1 first, then row 2, etc.)
     const contributors = [
       { img: 'Atagi.jpg', name: 'Atagi', popup: '01.png' },
       { img: 'Fire959.png', name: 'Fire959', popup: '02.png' },
@@ -462,11 +458,44 @@
       { img: 'Noxise.png', name: 'Nono', popup: '25.png' },
     ];
 
+    // ── POPUP LOGIC ────────────────────────────────────
+    let finalShown = false;
+
+    function openPopup(imgSrc, cell) {
+      const popupOverlay = document.getElementById('popup-overlay');
+      const popupImg = document.getElementById('popup-img');
+      popupImg.src = imgSrc;
+      popupOverlay.classList.add('open');
+      popupOverlay._pendingCell = cell;
+    }
+
+    function closePopup() {
+      const popupOverlay = document.getElementById('popup-overlay');
+      popupOverlay.classList.remove('open');
+      if (popupOverlay._pendingCell) {
+        popupOverlay._pendingCell.classList.add('revealed', 'seen');
+        popupOverlay._pendingCell.title = 'Clique pour cacher';
+        popupOverlay._pendingCell = null;
+      }
+
+      // Check if all cells have been seen — only trigger once
+      if (!finalShown) {
+        const total = document.querySelectorAll('.grid-cell').length;
+        const seen = document.querySelectorAll('.grid-cell.seen').length;
+        if (seen === total) {
+          finalShown = true;
+          setTimeout(() => {
+            document.getElementById('popup-img').src = 'final.png';
+            popupOverlay.classList.add('open');
+          }, 2000);
+        }
+      }
+    }
+
     // ── BUILD GRID ─────────────────────────────────────
-    // 6 cols × 4 rows = 24 cells (one contributor per cell)
     const COLS = 5;
     const ROWS = 5;
-    const overlay = document.getElementById('grid-overlay');
+    const gridOverlay = document.getElementById('grid-overlay');
 
     for (let i = 0; i < COLS * ROWS; i++) {
       const c = contributors[i] || { img: null, name: '' };
@@ -475,16 +504,13 @@
       cell.className = 'grid-cell';
       cell.title = 'Clique pour révéler !';
 
-      // Cover (transparent — the image shows through naturally)
       const cover = document.createElement('div');
       cover.className = 'cell-cover';
       cell.appendChild(cover);
 
-      // Reveal layer
       const revealDiv = document.createElement('div');
       revealDiv.className = 'cell-reveal';
 
-      // Avatar
       const avatarDiv = document.createElement('div');
       avatarDiv.className = 'cell-avatar';
       if (c.img) {
@@ -493,7 +519,6 @@
         avatarDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`;
       }
 
-      // Name
       const nameEl = document.createElement('p');
       nameEl.className = 'cell-name';
       nameEl.textContent = c.name;
@@ -502,42 +527,6 @@
       revealDiv.appendChild(nameEl);
       cell.appendChild(revealDiv);
 
-      // Popup
-      function openPopup(imgSrc, cell) {
-        const overlay = document.getElementById('popup-overlay');
-        const popupImg = document.getElementById('popup-img');
-        popupImg.src = imgSrc;
-        overlay.classList.add('open');
-        overlay.dataset.pendingCell = '';
-        overlay._pendingCell = cell;
-      }
-
-      let finalShown = false;
-
-      function closePopup() {
-        const overlay = document.getElementById('popup-overlay');
-        overlay.classList.remove('open');
-        if (overlay._pendingCell) {
-          overlay._pendingCell.classList.add('revealed', 'seen');
-          overlay._pendingCell.title = 'Clique pour cacher';
-          overlay._pendingCell = null;
-        }
-
-        // Check if all cells have been seen — only trigger once
-        if (!finalShown) {
-          const total = document.querySelectorAll('.grid-cell').length;
-          const seen = document.querySelectorAll('.grid-cell.seen').length;
-          if (seen === total) {
-            finalShown = true;
-            setTimeout(() => {
-              document.getElementById('popup-img').src = 'final.png';
-              overlay.classList.add('open');
-            }, 2000);
-          }
-        }
-      }
-
-      // Click to reveal
       cell.addEventListener('click', () => {
         if (!cell.classList.contains('seen')) {
           openPopup(c.popup, cell);
@@ -550,7 +539,7 @@
         }
       });
 
-      overlay.appendChild(cell);
+      gridOverlay.appendChild(cell);
     }
 
     // ── REVEAL PAGE ────────────────────────────────────
@@ -561,12 +550,11 @@
       requestAnimationFrame(() => {
         requestAnimationFrame(() => content.classList.add('show'));
       });
+
       const music1 = document.getElementById('bg-music');
       const music2 = document.getElementById('bg-music-2');
-
       music1.volume = 0.3;
       music1.play();
-
       music1.addEventListener('ended', () => {
         setTimeout(() => {
           music2.volume = 0.3;
@@ -575,11 +563,6 @@
       });
     }
   </script>
-
-  <div id="popup-overlay" onclick="if(event.target===this) closePopup()">
-    <img id="popup-img" src="" alt="Surprise" />
-    <button id="popup-close" onclick="closePopup()">Fermer ✕</button>
-  </div>
 
 </body>
 
