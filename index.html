@@ -360,6 +360,8 @@
 
 <body>
   <audio id="bg-music" src="shadow.mp3"></audio>
+  <audio id="bg-music-2" src="shadow2.mp3"></audio>
+
 
   <div class="wrapper">
 
@@ -559,10 +561,18 @@
       requestAnimationFrame(() => {
         requestAnimationFrame(() => content.classList.add('show'));
       });
-      const music = document.getElementById('bg-music');
-      music.volume = 0.2;
-      music.play();
-    }
+      const music1 = document.getElementById('bg-music');
+      const music2 = document.getElementById('bg-music-2');
+
+      music1.volume = 0.3;
+      music1.play();
+
+      music1.addEventListener('ended', () => {
+        setTimeout(() => {
+          music2.volume = 0.3;
+          music2.play();
+        }, 30000);
+      });
   </script>
 
   <div id="popup-overlay" onclick="if(event.target===this) closePopup()">
