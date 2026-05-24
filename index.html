@@ -505,6 +505,8 @@
         overlay._pendingCell = cell;
       }
 
+      let finalShown = false;
+
       function closePopup() {
         const overlay = document.getElementById('popup-overlay');
         overlay.classList.remove('open');
@@ -514,16 +516,20 @@
           overlay._pendingCell = null;
         }
 
-        // Check if all 25 cells have been seen
-        const total = document.querySelectorAll('.grid-cell').length;
-        const seen = document.querySelectorAll('.grid-cell.seen').length;
-        if (seen === total) {
-          setTimeout(() => {
-            document.getElementById('popup-img').src = 'final.png';
-            overlay.classList.add('open');
-          }, 3000);
+        // Check if all cells have been seen — only trigger once
+        if (!finalShown) {
+          const total = document.querySelectorAll('.grid-cell').length;
+          const seen = document.querySelectorAll('.grid-cell.seen').length;
+          if (seen === total) {
+            finalShown = true;
+            setTimeout(() => {
+              document.getElementById('popup-img').src = 'final.png';
+              overlay.classList.add('open');
+            }, 2000);
+          }
         }
       }
+
       // Click to reveal
       cell.addEventListener('click', () => {
         if (!cell.classList.contains('seen')) {
